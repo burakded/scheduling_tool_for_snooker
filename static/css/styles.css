@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.calendars {
+    display: flex;
+    justify-content: space-around;
+}
+
+.calendar {
+    width: 45%;
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.time-slots {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 50px);
+    gap: 10px;
+}
+
+.slot {
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slot.booked {
+    background-color: #f8d7da;
+}
+
+.slot button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.slot button:hover {
+    background-color: #0056b3;
+}
