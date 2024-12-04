@@ -23,9 +23,25 @@ app.get('/bookings', async (req, res) => {
     try {
         const response = await sheets.spreadsheets.values.get({
             spreadsheetId: SPREADSHEET_ID,
-            range: 'Sheet1!A:D', // Adjust this range based on your sheet's structure
+            range: 'Sheet1!A:D', // Make sure the range matches your spreadsheet's structure
         });
-        res.json(response.data.values); // Send the data as JSON response
+
+        const rows = response.data.values;
+
+        // Check if rows exist and skip the header row
+        if (!rows || rows.length === 0) {
+            return res.json([]); // Return an empty array if no data
+        }
+
+        // Format the data into objects for easier handling in the frontend
+        const formattedData = rows.slice(1).map((row) => ({
+            date: row[0] || '',
+            time: row[1] || '',
+            table: row[2] || '',
+            booking: row[3] || '',
+        }));
+
+        res.json(formattedData); // Send formatted data to the frontend
     } catch (error) {
         console.error('Error fetching bookings:', error);
         res.status(500).send('Failed to fetch bookings.');

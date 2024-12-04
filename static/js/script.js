@@ -9,16 +9,18 @@ const loadBookings = async () => {
         const response = await fetch(`${backendUrl}/bookings`);
         const bookings = await response.json();
 
-        bookings.forEach(([date, time, table, booking]) => {
-            const calendar = table === 'Snooker Table 1' ? 'table1' : 'table2';
-            const slot = document.querySelector(`#${calendar} .slot[data-time="${time}"]`);
+        // Populate the bookings into the respective time slots
+        bookings.forEach(({ date, time, table, booking }) => {
+            const calendarId = table === "Snooker Table 1" ? "table1" : "table2";
+            const slot = document.querySelector(`#${calendarId} .slot[data-time="${time}"]`);
+
             if (slot) {
                 slot.textContent = `${time} - ${booking}`;
                 slot.classList.add('booked');
             }
         });
     } catch (error) {
-        console.error("Error fetching bookings:", error);
+        console.error('Error loading bookings:', error);
     }
 };
 
@@ -64,3 +66,6 @@ calendars.forEach(calendarId => {
         slotsContainer.appendChild(slot);
     });
 });
+
+// Load bookings on page load
+loadBookings();
