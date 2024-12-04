@@ -1,4 +1,3 @@
-require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const bodyParser = require('body-parser');
 const { google } = require('googleapis');
@@ -6,14 +5,14 @@ const cors = require('cors');
 
 // Configure Google Sheets API authentication
 const auth = new google.auth.JWT(
-    process.env.GOOGLE_CLIENT_EMAIL, // Service account email from environment variables
+    process.env.GOOGLE_CLIENT_EMAIL, // Service account email from Vercel environment variables
     null,
     process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Replace escaped newlines
     ['https://www.googleapis.com/auth/spreadsheets'] // Scope for Google Sheets
 );
 
 const sheets = google.sheets({ version: 'v4', auth });
-const SPREADSHEET_ID = process.env.SPREADSHEET_ID; // Google Sheet ID from environment variables
+const SPREADSHEET_ID = process.env.SPREADSHEET_ID; // Google Sheet ID from Vercel environment variables
 
 const app = express();
 app.use(cors()); // Allow cross-origin requests
@@ -55,3 +54,5 @@ app.post('/bookings', async (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app; // Required for Vercel
