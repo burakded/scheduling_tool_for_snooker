@@ -1,4 +1,4 @@
-const backendUrl = "http://your-backend-url"; // Replace with your backend URL
+const backendUrl = "https://scheduling-tool-for-snooker.onrender.com"; // Replace with your backend URL
 
 const timeSlots = ['15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
 const calendars = ['table1', 'table2'];
