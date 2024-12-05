@@ -9,10 +9,13 @@
 <body>
     <div class="container">
         <h1>Snooker Room Booking</h1>
+        <div class="date-selector">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" />
+        </div>
         <div class="calendars">
             <div class="calendar" id="table1">
                 <div class="header">
-                    <div class="date">Date: <span id="date1">2024-12-04</span></div>
                     <h2>Snooker Table 1</h2>
                 </div>
                 <div class="time-slots">
@@ -21,7 +24,6 @@
             </div>
             <div class="calendar" id="table2">
                 <div class="header">
-                    <div class="date">Date: <span id="date2">2024-12-04</span></div>
                     <h2>Snooker Table 2</h2>
                 </div>
                 <div class="time-slots">
@@ -30,6 +32,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal for booking input -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Enter Booking Name</h2>
+            <input type="text" id="bookingName" placeholder="Enter name" />
+            <button id="confirmBooking">Confirm</button>
+        </div>
+    </div>
+
     <script src="static/js/script.js"></script>
 </body>
 </html>

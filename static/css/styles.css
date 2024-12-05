@@ -1,103 +1,75 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+/* Date Selector */
+.date-selector {
+    margin-bottom: 20px;
+}
+
+.date-selector label {
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+
+.date-selector input[type="date"] {
+    padding: 5px;
+    font-size: 1em;
+}
+
+/* Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
     text-align: center;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    font-size: 1.5em;
+.modal-content h2 {
     margin-bottom: 20px;
-    color: #333;
 }
 
-.calendars {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.calendar {
-    width: 48%;
-    background: #fafafa;
-    text-align: left;
-    border: 1px solid #ddd;
+.modal-content input {
     padding: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #ddd;
-}
-
-.header h2 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #555;
-}
-
-.header .date {
     font-size: 1em;
-    color: #888;
+    margin-bottom: 20px;
+    width: 80%;
 }
 
-.time-slots {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.slot {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: #fff;
+.modal-content button {
+    padding: 10px 20px;
     font-size: 1em;
-    color: #333;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.slot.booked {
-    background-color: #e3f2fd;
-    color: #555;
-}
-
-.slot:hover {
-    background-color: #f1f1f1;
-}
-
-.slot button {
-    display: none;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9em;
 }
 
-.slot.booked button {
-    display: inline-block;
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
