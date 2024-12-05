@@ -6,9 +6,19 @@ const closeModal = document.querySelector('.close');
 const confirmBooking = document.getElementById('confirmBooking');
 const bookingNameInput = document.getElementById('bookingName');
 
+// Helper function to update the day name based on the selected date
+const updateDayName = (selectedDate) => {
+    const date = new Date(selectedDate);
+    const options = { weekday: 'long' }; // Full day name (e.g., Thursday)
+    const dayName = new Intl.DateTimeFormat('en-GB', options).format(date);
+    document.getElementById('dayName').textContent = dayName;
+};
+
+
 // Default to today's date in UK time
 const ukDate = new Date().toLocaleDateString('en-GB').split('/').reverse().join('-');
 document.getElementById('date').value = ukDate;
+updateDayName(ukDate); // Set the day name for today's date
 
 let selectedDate = ukDate; // Track selected date
 let currentSlot = null;
@@ -16,7 +26,8 @@ let currentSlot = null;
 // Update date and reload bookings
 document.getElementById('date').addEventListener('change', (event) => {
     selectedDate = event.target.value;
-    loadBookings();
+    updateDayName(selectedDate); // Update the day name
+    loadBookings(); // Refresh bookings for the selected date
 });
 
 // Fetch and display bookings
