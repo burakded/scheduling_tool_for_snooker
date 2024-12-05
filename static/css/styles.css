@@ -190,7 +190,7 @@ h4 {
 
 .snooker-icon {
     width: 40px; /* Adjust the size of the image */
-    height: auto; /* Maintain aspect ratio */
+    height: 40px; /* Maintain aspect ratio */
     margin-right: 10px; /* Add spacing between the image and text */
     vertical-align: middle; /* Align the image with the text */
 }
