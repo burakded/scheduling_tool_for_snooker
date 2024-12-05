@@ -1,18 +1,22 @@
 const backendUrl = "https://scheduling-tool-for-snooker.onrender.com"; // Replace with your backend URL
+
+// Modal Elements
 const modal = document.getElementById('bookingModal');
 const closeModal = document.querySelector('.close');
 const confirmBooking = document.getElementById('confirmBooking');
 const bookingNameInput = document.getElementById('bookingName');
 
-let selectedDate = new Date().toISOString().split('T')[0]; // Default to today's date (UTC)
+// Default to today's date in UK time
+const ukDate = new Date().toLocaleDateString('en-GB').split('/').reverse().join('-');
+document.getElementById('date').value = ukDate;
 
-// Set today's date as default in the date picker
-document.getElementById('date').value = selectedDate;
+let selectedDate = ukDate; // Track selected date
+let currentSlot = null;
 
-// Update date when user changes the picker
+// Update date and reload bookings
 document.getElementById('date').addEventListener('change', (event) => {
     selectedDate = event.target.value;
-    loadBookings(); // Refresh bookings for the selected date
+    loadBookings();
 });
 
 // Fetch and display bookings
@@ -44,8 +48,6 @@ const loadBookings = async () => {
 };
 
 // Add booking modal functionality
-let currentSlot = null;
-
 const addBooking = async (time, table, booking) => {
     try {
         await fetch(`${backendUrl}/bookings`, {
@@ -53,7 +55,7 @@ const addBooking = async (time, table, booking) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ date: selectedDate, time, table, booking }),
         });
-        loadBookings(); // Reload bookings
+        loadBookings();
     } catch (error) {
         console.error('Error adding booking:', error);
     }
@@ -64,9 +66,7 @@ const timeSlots = ['15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'
 const calendars = ['table1', 'table2'];
 
 calendars.forEach((calendarId) => {
-    const calendar = document.getElementById(calendarId);
-    const slotsContainer = calendar.querySelector('.time-slots');
-
+    const slotsContainer = document.querySelector(`#${calendarId} .time-slots`);
     timeSlots.forEach((time) => {
         const slot = document.createElement('div');
         slot.classList.add('slot');
@@ -77,7 +77,7 @@ calendars.forEach((calendarId) => {
         slot.addEventListener('click', () => {
             if (!slot.classList.contains('booked')) {
                 currentSlot = { time, table: calendarId === 'table1' ? 'Snooker Table 1' : 'Snooker Table 2' };
-                modal.style.display = 'block'; // Show the modal
+                modal.style.display = 'block';
             }
         });
 
@@ -85,18 +85,17 @@ calendars.forEach((calendarId) => {
     });
 });
 
-// Modal close functionality
+// Modal interactions
 closeModal.addEventListener('click', () => {
     modal.style.display = 'none';
 });
 
-// Confirm booking
 confirmBooking.addEventListener('click', () => {
     const bookingName = bookingNameInput.value.trim();
     if (bookingName && currentSlot) {
         addBooking(currentSlot.time, currentSlot.table, bookingName);
         bookingNameInput.value = ''; // Clear input
-        modal.style.display = 'none'; // Close modal
+        modal.style.display = 'none';
     }
 });
 
