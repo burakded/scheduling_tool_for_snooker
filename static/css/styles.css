@@ -116,22 +116,14 @@ h4 {
 }
 
 .slot {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: #fff;
-    font-size: 1em;
-    color: #333;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: #f9f9f9; /* Default background for unbooked slots */
+    transition: background-color 0.3s ease;
 }
 
 .slot.booked {
-    background-color: #e3f2fd;
-    color: #555;
+    background-color: #e6f7ff; /* Background for booked slots */
 }
+
 
 .slot:hover {
     background-color: #f1f1f1;
@@ -188,4 +180,65 @@ h4 {
 
 .modal-content button:hover {
     background-color: #0056b3;
+}
+
+
+.slot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.slot:hover {
+    background-color: #f1f1f1;
+}
+
+.slot.booked {
+    background-color: #e6f7ff;
+}
+
+.slot span {
+    flex: 1;
+    text-align: left;
+}
+
+.edit-btn,
+.delete-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+
+.slot:not(.booked) span {
+    color: #aaa; /* Gray color for empty slots */
 }
