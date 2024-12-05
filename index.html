@@ -13,15 +13,26 @@
             Elm Park Snooker Booking Table 1 & 2
         </h1>
         <h4>(Table 3 cannot be booked)</h4>
+
+        <!-- Date Navigation -->
+        <div class="date-navigation">
+            <button id="prevDay" class="arrow-btn">&larr;</button>
+            <span id="currentDate" class="current-date"></span>
+            <button id="nextDay" class="arrow-btn">&rarr;</button>
+        </div>
+
+        <!-- Date Selector -->
         <div class="date-selector">
             <label for="date">Select Date:</label>
             <input type="date" id="date">
             <span id="dayName" class="day-name"></span>
         </div>
+
+        <!-- Calendars -->
         <div class="calendars">
             <div class="calendar" id="table1">
                 <div class="header">
-                    <h2>Snooker Table 1</h2>
+                    <h2>Table 1</h2>
                 </div>
                 <div class="time-slots">
                     <!-- Time slots will be dynamically added here -->
@@ -29,7 +40,7 @@
             </div>
             <div class="calendar" id="table2">
                 <div class="header">
-                    <h2>Snooker Table 2</h2>
+                    <h2>Table 2</h2>
                 </div>
                 <div class="time-slots">
                     <!-- Time slots will be dynamically added here -->

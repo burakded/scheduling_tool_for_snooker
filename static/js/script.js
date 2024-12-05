@@ -6,28 +6,64 @@ const closeModal = document.querySelector('.close');
 const confirmBooking = document.getElementById('confirmBooking');
 const bookingNameInput = document.getElementById('bookingName');
 
+// Date Navigation Elements
+const currentDateElement = document.getElementById('currentDate');
+const prevDayButton = document.getElementById('prevDay');
+const nextDayButton = document.getElementById('nextDay');
+const dateInput = document.getElementById('date');
+
 // Helper function to update the day name based on the selected date
 const updateDayName = (selectedDate) => {
     const date = new Date(selectedDate);
-    const options = { weekday: 'long' }; // Full day name (e.g., Thursday)
+    const options = { weekday: 'long' };
     const dayName = new Intl.DateTimeFormat('en-GB', options).format(date);
     document.getElementById('dayName').textContent = dayName;
 };
 
+// Helper function to format a date for display
+const formatDate = (date) => new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+}).format(date);
 
-// Default to today's date in UK time
-const ukDate = new Date().toLocaleDateString('en-GB').split('/').reverse().join('-');
-document.getElementById('date').value = ukDate;
-updateDayName(ukDate); // Set the day name for today's date
+// Update the current date and refresh bookings
+const updateCurrentDate = (newDate) => {
+    selectedDate = newDate.toISOString().split('T')[0];
+    currentDateElement.textContent = formatDate(newDate);
+    updateDayName(selectedDate);
+    dateInput.value = selectedDate; // Sync with the date input
+    loadBookings();
+};
 
-let selectedDate = ukDate; // Track selected date
+// Event listener for changes to the date input
+dateInput.addEventListener('change', () => {
+    const newDate = new Date(dateInput.value);
+    updateCurrentDate(newDate);
+});
+
+// Default to today's date
+const today = new Date();
+const updateDate = (date) => {
+    dateInput.value = date.toISOString().split('T')[0];
+    currentDateElement.textContent = formatDate(date);
+};
+updateDate(today);
+
+let selectedDate = today.toISOString().split('T')[0];
 let currentSlot = null;
 
-// Update date and reload bookings
-document.getElementById('date').addEventListener('change', (event) => {
-    selectedDate = event.target.value;
-    updateDayName(selectedDate); // Update the day name
-    loadBookings(); // Refresh bookings for the selected date
+// Event listeners for navigation buttons
+prevDayButton.addEventListener('click', () => {
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() - 1);
+    updateCurrentDate(newDate);
+});
+
+nextDayButton.addEventListener('click', () => {
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() + 1);
+    updateCurrentDate(newDate);
 });
 
 // Fetch and display bookings
@@ -36,13 +72,11 @@ const loadBookings = async () => {
         const response = await fetch(`${backendUrl}/bookings`);
         const bookings = await response.json();
 
-        // Clear current slots
         document.querySelectorAll('.slot').forEach((slot) => {
             slot.textContent = slot.getAttribute('data-time');
             slot.classList.remove('booked');
         });
 
-        // Populate the bookings for the selected date
         bookings
             .filter((booking) => booking.date === selectedDate)
             .forEach(({ time, table, booking }) => {
@@ -84,7 +118,6 @@ calendars.forEach((calendarId) => {
         slot.setAttribute('data-time', time);
         slot.textContent = time;
 
-        // Open modal on click
         slot.addEventListener('click', () => {
             if (!slot.classList.contains('booked')) {
                 currentSlot = { time, table: calendarId === 'table1' ? 'Snooker Table 1' : 'Snooker Table 2' };
@@ -105,7 +138,7 @@ confirmBooking.addEventListener('click', () => {
     const bookingName = bookingNameInput.value.trim();
     if (bookingName && currentSlot) {
         addBooking(currentSlot.time, currentSlot.table, bookingName);
-        bookingNameInput.value = ''; // Clear input
+        bookingNameInput.value = '';
         modal.style.display = 'none';
     }
 });
