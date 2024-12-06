@@ -106,7 +106,7 @@ const handleDeleteSlot = (tableId, time) => {
 
 
 
-// Populate time slots with Edit and Delete buttons
+// Populate time slots with inline editing
 const populateTimeSlots = () => {
     const timeSlots = ['15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
     const calendars = ['table1', 'table2'];
@@ -123,26 +123,35 @@ const populateTimeSlots = () => {
             const timeText = document.createElement('span');
             timeText.textContent = time;
 
-            // Create Edit Button
-            const editButton = document.createElement('button');
-            editButton.textContent = "Book/Edit";
-            editButton.classList.add('edit-btn');
-            editButton.addEventListener('click', () => handleEditSlot(calendarId, time));
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'booking-input';
+            input.placeholder = 'Enter event name';
 
-            // Create Delete Button
+            const saveButton = document.createElement('button');
+            saveButton.textContent = 'Save';
+            saveButton.className = 'save-btn';
+            saveButton.addEventListener('click', () => {
+                const bookingName = input.value.trim();
+                if (bookingName) {
+                    addBooking(time, calendarId === 'table1' ? 'Snooker Table 1' : 'Snooker Table 2', bookingName);
+                }
+            });
+
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = "Delete";
-            deleteButton.classList.add('delete-btn');
+            deleteButton.textContent = 'Delete';
+            deleteButton.className = 'delete-btn';
             deleteButton.addEventListener('click', () => handleDeleteSlot(calendarId, time));
 
-            // Append elements
             slot.appendChild(timeText);
-            slot.appendChild(editButton);
+            slot.appendChild(input);
+            slot.appendChild(saveButton);
             slot.appendChild(deleteButton);
             slotsContainer.appendChild(slot);
         });
     });
 };
+
 
 // Add booking modal functionality
 const addBooking = async (time, table, booking) => {
@@ -158,7 +167,7 @@ const addBooking = async (time, table, booking) => {
     }
 };
 
-// Reload bookings after changes
+// Update bookings in real-time
 const loadBookings = async () => {
     try {
         const response = await fetch(`${backendUrl}/bookings`);
@@ -166,7 +175,11 @@ const loadBookings = async () => {
 
         document.querySelectorAll('.slot').forEach((slot) => {
             const timeText = slot.querySelector('span');
-            timeText.textContent = slot.getAttribute('data-time');
+            const input = slot.querySelector('.booking-input');
+            const time = slot.getAttribute('data-time');
+
+            timeText.textContent = time;
+            input.value = "";
             slot.classList.remove('booked');
         });
 
@@ -174,16 +187,18 @@ const loadBookings = async () => {
             .filter((booking) => booking.date === selectedDate)
             .forEach(({ time, table, booking }) => {
                 const calendarId = table === "Snooker Table 1" ? "table1" : "table2";
-                const slot = document.querySelector(`#${calendarId} .slot[data-time="${time}"] span`);
+                const slot = document.querySelector(`#${calendarId} .slot[data-time="${time}"]`);
                 if (slot) {
-                    slot.textContent = `${time} - ${booking}`;
-                    slot.parentElement.classList.add('booked');
+                    const input = slot.querySelector('.booking-input');
+                    input.value = booking;
+                    slot.classList.add('booked');
                 }
             });
     } catch (error) {
         console.error('Error loading bookings:', error);
     }
 };
+
 
 // Initialize time slots and load bookings
 populateTimeSlots();

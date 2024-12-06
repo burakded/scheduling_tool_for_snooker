@@ -245,6 +245,36 @@ h4 {
     color: #aaa; /* Gray color for empty slots */
 }
 
+.booking-input {
+    flex: 2;
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.booking-input:focus {
+    background-color: #fff;
+    border-color: #007bff;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
 
 /* Responsive Design: Stack calendars on smaller screens */
 @media (max-width: 768px) {
