@@ -125,7 +125,7 @@ const populateTimeSlots = () => {
 
             // Create Edit Button
             const editButton = document.createElement('button');
-            editButton.textContent = "Reserve/Edit";
+            editButton.textContent = "Book/Edit";
             editButton.classList.add('edit-btn');
             editButton.addEventListener('click', () => handleEditSlot(calendarId, time));
 
