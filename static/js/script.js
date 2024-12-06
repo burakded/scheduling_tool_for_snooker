@@ -68,7 +68,7 @@ nextDayButton.addEventListener('click', () => {
 
 // Handle Edit Slot
 const handleEditSlot = (tableId, time) => {
-    const newBookingName = prompt(`Enter new booking name for ${time}:`);
+    const newBookingName = prompt(`Enter snooker match for ${time}:`);
     if (newBookingName) {
         addBooking(time, tableId === 'table1' ? 'Snooker Table 1' : 'Snooker Table 2', newBookingName);
     }
