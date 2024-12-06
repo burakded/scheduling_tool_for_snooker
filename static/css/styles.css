@@ -90,7 +90,6 @@ h4 {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    flex-wrap: wrap; /* Allows wrapping when needed */
 }
 
 .calendar {
