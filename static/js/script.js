@@ -126,7 +126,7 @@ const populateTimeSlots = () => {
             const input = document.createElement('input');
             input.type = 'text';
             input.className = 'booking-input';
-            input.placeholder = 'Enter event name';
+            input.placeholder = 'Enter snooker match';
 
             const saveButton = document.createElement('button');
             saveButton.textContent = 'Save';

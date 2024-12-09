@@ -2,9 +2,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-image: url("../../bg2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     text-align: center;
+    color: #333;
 }
+
 
 .container {
     max-width: 1200px;
@@ -26,6 +31,11 @@ h4 {
     font-size: 0.9em;
     margin-bottom: 20px;
     color: #666;
+}
+
+.header img {
+    max-width: 90%;
+    height: auto;
 }
 
 .date-navigation {
@@ -130,6 +140,23 @@ h4 {
 .slot:hover {
     background-color: #f1f1f1;
 }
+
+.save-btn {
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
 
 .snooker-icon {
     width: 50px;
